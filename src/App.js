@@ -34,8 +34,8 @@ class Playlist extends Component{
     return(
       <div style ={{...defaultStyle,width:"25%",display:'inline-block'}}>
         <img/>
-        <h3>Playlist Name</h3>
-        <ul>
+        <h2 >Playlist Name</h2>
+        <ul style= {{...defaultStyle , textAlign : 'left'}}>
           <li>song 1</li>
           <li>song 2</li>
           <li>song 3</li>
