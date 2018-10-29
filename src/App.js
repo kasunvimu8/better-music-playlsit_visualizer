@@ -9,7 +9,7 @@ let fakeServerData = {
     name: 'kasun',
     playlists :[
         {
-          name : 'my fav',
+          name : 'my-fav',
           songs: [
             {name :'uu',duration :2000},
             {name:'mm',duration :3000},
@@ -19,7 +19,7 @@ let fakeServerData = {
 
         },
         {
-          name :"my best",
+          name :"my-best",
           songs: [
             {name :'uu',duration :2000},
             {name:'mm',duration :3000},
@@ -28,7 +28,7 @@ let fakeServerData = {
           ]
         },
         {
-          name: "my hits",
+          name: "my-hits",
           songs: [
             {name :'uu',duration :2000},
             {name:'mm',duration :3000},
@@ -37,7 +37,7 @@ let fakeServerData = {
           ]
         },
         {
-          name :"my last",
+          name :"my-last",
           songs: [
             {name :'uu',duration :2000},
             {name:'mm',duration :3000},
@@ -56,7 +56,7 @@ class PlaylistsCount extends Component{
 render(){
   return(
       <div style={{width : "40%" , display : 'inline-block'}}>
-        <h2 style={defaultStyle}> {this.props.playlists && this.props.playlists.length -1} Playlist's</h2>
+        <h2 style={defaultStyle}> {this.props.playlists && this.props.playlists.length } Playlist's</h2>
 
       </div>
 
@@ -88,7 +88,10 @@ render(){
   return(
     <div style={defaultStyle}>
       <img/>
-      <input type ="text"/>
+      <input type ="text" onKeyUp ={event =>
+      this.props.changeText(event.target.value)
+      }
+      />
     </div>
   );
 
@@ -118,13 +121,20 @@ class Playlist extends Component{
 class App extends Component {
   constructor(){
     super();
-    this.state = {serverData:{}}
+    this.state = {serverData:{},filterString :''}
   }
   componentDidMount(){  //hold the state untill data fletch
     setTimeout( ()=>
-    {this.setState({serverData : fakeServerData} )} ,1000 );
+    {this.setState({serverData : fakeServerData})} ,1000 );
+    
 }
+
   render() {
+
+    let playlistToRender =this.state.serverData.user? this.state.serverData.user.playlists.filter( playlist=>  // filtering the words and display
+      playlist.name.toLowerCase().includes(this.state.filterString.toLowerCase()))
+    : []  //if user exists assign otherwise null
+  
     return (
       <div className="App">
 
@@ -133,11 +143,12 @@ class App extends Component {
               <h1 style={{...defaultStyle,'font-size' : '54px'}}>
               { this.state.serverData.user.name }'s Playlist
               </h1>
-              <PlaylistsCount playlists ={this.state.serverData.user.playlists}/>
-              <HoursCount playlists ={this.state.serverData.user.playlists}/>
-              <Filter/>
-
-             { this.state.serverData.user.playlists.map(playlist => //mapping the values to Playlist
+              <PlaylistsCount playlists ={playlistToRender}/>
+              <HoursCount playlists ={playlistToRender}/>
+                      
+              <Filter changeText = { text => this.setState({filterString :text} )}/> 
+              
+             { playlistToRender .map(playlist => //mapping the values to Playlist
                 <Playlist playlist ={ playlist}/>
                 )}
               
