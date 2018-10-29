@@ -100,11 +100,13 @@ class Playlist extends Component{
     return(
       <div style ={{...defaultStyle,width:"25%",display:'inline-block'}}>
         <img/>
-        <h2 >Playlist Name</h2>
+        <h2 >{this.props.playlist.name}</h2>
         <ul style= {{...defaultStyle , textAlign : 'left'}}>
-          <li>song 1</li>
-          <li>song 2</li>
-          <li>song 3</li>
+
+          { this.props.playlist.songs.map(song => //map the 
+          <li> {song.name}</li>
+          )}
+          
         </ul>
       </div>
   
@@ -134,9 +136,11 @@ class App extends Component {
               <PlaylistsCount playlists ={this.state.serverData.user.playlists}/>
               <HoursCount playlists ={this.state.serverData.user.playlists}/>
               <Filter/>
-              <Playlist/>
-              <Playlist/>
-              <Playlist/>
+
+             { this.state.serverData.user.playlists.map(playlist => //mapping the values to Playlist
+                <Playlist playlist ={ playlist}/>
+                )}
+              
           </div> : <h1 style={defaultStyle}>"Loading ..."</h1>  //if else statement 
         }
       </div>
