@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import queryString from 'query-string';
 
 let defaultStyle ={
   color : '#00f'
@@ -123,15 +124,28 @@ class App extends Component {
     super();
     this.state = {serverData:{},filterString :''}
   }
-  componentDidMount(){  //hold the state untill data fletch
+/*  componentDidMount(){  //hold the state untill data fletch
     setTimeout( ()=>
     {this.setState({serverData : fakeServerData})} ,1000 );
     
-}
+}*/
+  componentDidMount(){
+    let parsed = queryString.parse(window.location.search);
+    console.log(parsed);
+    let accessToken = parsed.access_token;
+    fetch('https://api.spotify.com/v1/me',{
+      headers: {
+        'Authorization': 'Bearer ' + accessToken}
+      }).then(response=>response.json())
+      .then(data=>this.setState({serverData : {user: {name : data.display_name}}}))  ; 
+    
+  }
+
 
   render() {
 
-    let playlistToRender =this.state.serverData.user? this.state.serverData.user.playlists.filter( playlist=>  // filtering the words and display
+    let playlistToRender =this.state.serverData.user && this.state.serverData.user.playlists
+    ? this.state.serverData.user.playlists.filter( playlist=>  // filtering the words and display
       playlist.name.toLowerCase().includes(this.state.filterString.toLowerCase()))
     : []  //if user exists assign otherwise null
   
@@ -152,7 +166,8 @@ class App extends Component {
                 <Playlist playlist ={ playlist}/>
                 )}
               
-          </div> : <h1 style={defaultStyle}>"Loading ..."</h1>  //if else statement 
+          </div> :<button  onClick={()=>window.location='http://localhost:8888/login' }
+          style={{padding:'20px',fontSize:'50px',marginTop:'20px'}}>Sign in with spotify</button> //if else statement 
         }
       </div>
     );
