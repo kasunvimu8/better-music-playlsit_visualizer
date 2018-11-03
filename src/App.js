@@ -124,41 +124,57 @@ class App extends Component {
     super();
     this.state = {serverData:{},filterString :''}
   }
-/*  componentDidMount(){  //hold the state untill data fletch
-    setTimeout( ()=>
-    {this.setState({serverData : fakeServerData})} ,1000 );
-    
-}*/
+    /*  componentDidMount(){  //hold the state untill data fletch
+        setTimeout( ()=>
+        {this.setState({serverData : fakeServerData})} ,1000 );
+    }*/
+
   componentDidMount(){
     let parsed = queryString.parse(window.location.search);
-    console.log(parsed);
     let accessToken = parsed.access_token;
-    fetch('https://api.spotify.com/v1/me',{
+
+     fetch('https://api.spotify.com/v1/me',{
+       headers: {
+         'Authorization': 'Bearer ' + accessToken}
+       }).then(response=>response.json())
+       .then(data=>this.setState({
+         user: {
+           name : data.display_name
+          }
+        }))  
+    
+      fetch('https://api.spotify.com/v1/me/playlists',{
       headers: {
         'Authorization': 'Bearer ' + accessToken}
       }).then(response=>response.json())
-      .then(data=>this.setState({serverData : {user: {name : data.display_name}}}))  ; 
-    
+      .then(data=>this.setState({
+
+             playlists: data.items.map(item =>({
+            name :item.name,
+            songs :[]
+            }))
+          }))
+      
   }
 
 
   render() {
 
-    let playlistToRender =this.state.serverData.user && this.state.serverData.user.playlists
-    ? this.state.serverData.user.playlists.filter( playlist=>  // filtering the words and display
+    let playlistToRender =this.state.user && this.state.playlists
+    ? this.state.playlists.filter( playlist=>  // filtering the words and display
       playlist.name.toLowerCase().includes(this.state.filterString.toLowerCase()))
     : []  //if user exists assign otherwise null
   
     return (
       <div className="App">
 
-        { this.state.serverData.user ?
+        { this.state.user ?
           <div>
               <h1 style={{...defaultStyle,'font-size' : '54px'}}>
-              { this.state.serverData.user.name }'s Playlist
+              { this.state.user.name }'s Playlist
               </h1>
               <PlaylistsCount playlists ={playlistToRender}/>
-              <HoursCount playlists ={playlistToRender}/>
+              < HoursCount playlists ={playlistToRender}/>
                       
               <Filter changeText = { text => this.setState({filterString :text} )}/> 
               
