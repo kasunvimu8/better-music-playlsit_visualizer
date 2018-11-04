@@ -101,13 +101,16 @@ render(){
 
 class Playlist extends Component{
   render(){
+    let playlist =this.props.playlist;
     return(
       <div style ={{...defaultStyle,width:"25%",display:'inline-block'}}>
-        <img/>
-        <h2 >{this.props.playlist.name}</h2>
+        
+        <img src ={ playlist.imageUrl} style={{width:'100px'}}/>
+
+        <h3 >{playlist.name}</h3>
         <ul style= {{...defaultStyle , textAlign : 'left'}}>
 
-          { this.props.playlist.songs.map(song => //map the 
+          { playlist.songs.map(song => //map the 
           <li> {song.name}</li>
           )}
           
@@ -149,11 +152,16 @@ class App extends Component {
       }).then(response=>response.json())
       .then(data=>this.setState({
 
-             playlists: data.items.map(item =>({
+             playlists: data.items.map(item =>{
+             console.log(data.items)
+             return {
             name :item.name,
-            songs :[]
-            }))
-          }))
+            imageUrl : item.images[0].url,
+            songs : []
+             }  
+          })
+
+       }))
       
   }
 
