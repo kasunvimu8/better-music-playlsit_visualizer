@@ -201,9 +201,17 @@ class App extends Component {
   render() {
 
     let playlistToRender =this.state.user && this.state.playlists
-    ? this.state.playlists.filter( playlist=>  // filtering the words and display
-      playlist.name.toLowerCase().includes(this.state.filterString.toLowerCase()))
-    : []  //if user exists assign otherwise null
+    ? this.state.playlists.filter( playlist=>{  // filtering the words and display
+     
+        let matchesPlaylist=playlist.name.toLowerCase().includes(
+        this.state.filterString.toLowerCase())
+
+        let matchesSong = playlist.songs.find(song => song.name.toLowerCase()
+        .includes(this.state.filterString.toLowerCase()))
+        return matchesPlaylist || matchesSong
+          
+      }) :[]
+      //if user exists assign otherwise null
   
     return (
       <div className="App">
