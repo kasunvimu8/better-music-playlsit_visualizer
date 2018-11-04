@@ -135,6 +135,9 @@ class App extends Component {
   componentDidMount(){
     let parsed = queryString.parse(window.location.search);
     let accessToken = parsed.access_token;
+    if(!accessToken){
+      return;
+    }
 
      fetch('https://api.spotify.com/v1/me',{
        headers: {
@@ -190,9 +193,13 @@ class App extends Component {
                 <Playlist playlist ={ playlist}/>
                 )}
               
-          </div> :<button  onClick={()=>window.location='http://localhost:8888/login' }
-          style={{padding:'20px',fontSize:'50px',marginTop:'20px'}}>Sign in with spotify</button> //if else statement 
-        }
+          </div> :<button  onClick={()=> {
+              window.location=window.location.href.includes('localhost')
+              ? 'http://localhost:8888/login' 
+              : 'https://backend-better-music-playlist.herokuapp.com/login' }
+            }
+              style={{padding:'20px',fontSize:'50px',marginTop:'20px'}}>Sign in with spotify</button> //if else statement 
+            }
       </div>
     );
   }
