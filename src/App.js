@@ -1,62 +1,22 @@
 import React, { Component } from 'react';
+import 'reset-css/reset.css';
 import './App.css';
 import queryString from 'query-string';
 
 let defaultStyle ={
-  color : '#00f'
-}
-let fakeServerData = {
-  user : {
-    name: 'kasun',
-    playlists :[
-        {
-          name : 'my-fav',
-          songs: [
-            {name :'uu',duration :2000},
-            {name:'mm',duration :3000},
-            {name:'kk',duration :3211}
-          
-          ]
+  color : '#fff',
+  'font-family' :'papyrus'
+};  
 
-        },
-        {
-          name :"my-best",
-          songs: [
-            {name :'uu',duration :2000},
-            {name:'mm',duration :3000},
-            {name:'kk',duration :3211}
-          
-          ]
-        },
-        {
-          name: "my-hits",
-          songs: [
-            {name :'uu',duration :2000},
-            {name:'mm',duration :3000},
-            {name:'kk',duration :3211}
-          
-          ]
-        },
-        {
-          name :"my-last",
-          songs: [
-            {name :'uu',duration :2000},
-            {name:'mm',duration :3000},
-            {name:'kk',duration :3211}
-          
-          ]
-        }
-
-    ]
-
-  }
-
+function isEven(i){
+  return i%2;
 }
 
 class PlaylistsCount extends Component{
 render(){
+  let sty ={width : "40%" , display : 'inline-block','margin-bottom' :'10px','font-size' :'14px', 'line-height':'30px' };
   return(
-      <div style={{width : "40%" , display : 'inline-block'}}>
+      <div style={sty}>
         <h2 style={defaultStyle}> {this.props.playlists && this.props.playlists.length } Playlist's</h2>
 
       </div>
@@ -66,6 +26,8 @@ render(){
 }
 class HoursCount extends Component{
     render(){
+      let playliststyle={width : "40%" , display : 'inline-block','margine-bottom':'20px','font-size':'20px','line-height':'30px'}
+
       let allSongs = this.props.playlists.reduce((songs ,eachPlayList)=>{
         return songs.concat(eachPlayList.songs)
       },[])
@@ -75,7 +37,7 @@ class HoursCount extends Component{
       },0)
       
       return(
-          <div style={{width : "40%" , display : 'inline-block'}}>
+          <div style={playliststyle}>
             <h2 style={defaultStyle}>{Math.round(totalDuration/60)} Hours</h2>
     
           </div>
@@ -92,6 +54,7 @@ render(){
       <input type ="text" onKeyUp ={event =>
       this.props.changeText(event.target.value)
       }
+      style={{...defaultStyle,'color':'black' ,'font-size':'20px',padding:'10px'}}
       />
     </div>
   );
@@ -103,15 +66,17 @@ class Playlist extends Component{
   render(){
     let playlist =this.props.playlist;
     return(
-      <div style ={{...defaultStyle,width:"25%",display:'inline-block'}}>
+      <div style ={{...defaultStyle,width:"25%",display:'inline-block',width:'20%',padding:'10px','margin-top':'4px','background-color':
+      isEven(this.props.index) ? '#9FBAC2' :'#808080	'
+      }}>
         
-        <img src ={ playlist.imageUrl} style={{width:'100px'}}/>
+        <img src ={ playlist.imageUrl} style={{width:'80px'}}/>
 
         <h3 >{playlist.name}</h3>
-        <ul style= {{...defaultStyle , textAlign : 'left'}}>
+        <ul style= {{...defaultStyle , textAlign : 'left', 'margin-top':'10px','font-weight':'bold'}}>
 
           { playlist.songs.map(song => //map the 
-          <li> {song.name}</li>
+          <li style={{'padding-top':'2px'}}> {song.name}</li>
           )}
           
         </ul>
@@ -226,8 +191,8 @@ class App extends Component {
                       
               <Filter changeText = { text => this.setState({filterString :text} )}/> 
               
-             { playlistToRender .map(playlist => //mapping the values to Playlist
-                <Playlist playlist ={ playlist}/>
+             { playlistToRender .map((playlist,i)=> //mapping the values to Playlist
+                <Playlist playlist ={playlist}   index={i}/>
                 )}
               
           </div> :<button  onClick={()=> {
