@@ -54,7 +54,7 @@ render(){
       <input type ="text" onKeyUp ={event =>
       this.props.changeText(event.target.value)
       }
-      style={{...defaultStyle,'color':'black' ,'font-size':'20px',padding:'10px'}}
+      style={{...defaultStyle,'color':'black' ,'font-size':'17px',padding:'8px'}}
       />
     </div>
   );
@@ -188,7 +188,7 @@ class App extends Component {
               </h1>
               <PlaylistsCount playlists ={playlistToRender}/>
               < HoursCount playlists ={playlistToRender}/>
-                      
+                <h6 style={{...defaultStyle}}> search </h6>      
               <Filter changeText = { text => this.setState({filterString :text} )}/> 
               
              { playlistToRender .map((playlist,i)=> //mapping the values to Playlist
