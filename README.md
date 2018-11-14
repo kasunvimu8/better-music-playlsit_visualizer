@@ -6,7 +6,7 @@ ii).In order to create account in spotify you should be brwosering in US.Make su
  (https://www.spotify.com/us/signup/)
  after sign up in spotify create some playlists.Windows have spotify by defalt.you just have to login with credentials and then create  the playlists.that will be helpfull in testing.
 
-iii).After that you can start the cloning the backend and the frontend parts to your lacl machine.This is the frontend and the backend will be here. ()
+iii).After that you can start the cloning the backend and the frontend parts to your lacl machine.This is the frontend and the backend will be here. (https://github.com/kasunvimu8/backend_better-music-visualizer_playlist)
 
   iv).After cloning the backend file go to that directory and install the npm dependacies by executing the command "npm install" .
   then the backend severe will be listing to the http://localhost:8888
@@ -25,7 +25,7 @@ go to your browser and type
                                   http://localhost:8888/login
                                   then you will be able to see the playlists that you have in your spotify account with the songs.
                                   
-  vii).Add the relevent changes that you want to do and do the "pull request".i separate the space for visualisation part in pulic/index.html in frontend.
+  vii).Add the relevent changes that you want to do and do the "pull request".i separate the space for visualisation part in public/index.html in frontend.
     
      
 
