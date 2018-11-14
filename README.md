@@ -1,5 +1,3 @@
-better-music-playlsit_visualizer
-
 how to run this in local machine
 ---------------------------------
 i).first you have to have an Spotify account.spotify is a music application and they provide Api's for open source developments.
