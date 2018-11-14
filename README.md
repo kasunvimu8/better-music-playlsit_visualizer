@@ -15,15 +15,15 @@ iii).After that you can start the cloning the backend and the frontend parts to 
   
   v).After that go to the frontend directory and install npm dependacies in there in the same way.In here you have to give the CLIENT_SECRET and the CLIENT_ID values in the command line .Otherwise it can steal by anybody who have the secrets.therefore the secrets are tied up to the command line.use mine for testing.I will delete them later.CLIENT_SECRET and CLIENT_ID are there for security purposes in spotify.Only valid clients have access to the their Api's.
   
-  to do that execute these in frontend command line ====>
-     " export SPOTIFY_CLIENT_SECRET=08c9c571b1bd4a9a9db84807bae0e865 "
-     " export SPOTIFY_CLIENT_ID=9a779d8bf3b14e31b2416a5fb76434df "
+  to do that execute these in frontend command line
+    * " export SPOTIFY_CLIENT_SECRET=08c9c571b1bd4a9a9db84807bae0e865 "
+    * " export SPOTIFY_CLIENT_ID=9a779d8bf3b14e31b2416a5fb76434df "
      
  vi). Then you will be able to run the frontend sever locally.it will be automatically run.
  
  
 --------------------------------------------------------------------------------------
-go to your browser and type  ====>>
+go to your browser and type  
                                   http://localhost:8888/login
                                   then you will be able to see the playlists that you have in your spotify account with the songs.
                                   
