@@ -26,6 +26,10 @@ go to your browser and type
                                   then you will be able to see the playlists that you have in your spotify account with the songs.
                                   
   vii).Add the relevent changes that you want to do and do the "pull request".i separate the space for visualisation part in public/index.html in frontend.
+  
+--------------------------------------------------------------------------------------
+got to this site to use this application online
+https://bestmusicvisualizer.herokuapp.com
     
      
 
