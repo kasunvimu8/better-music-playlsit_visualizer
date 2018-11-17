@@ -33,6 +33,7 @@ go to your browser and type
 got to this site to use this application online
 https://bestmusicvisualizer.herokuapp.com
     
+   viii).just use your credentials to login to the acoount in there.then your playlist will be shown.  
      
 
   
