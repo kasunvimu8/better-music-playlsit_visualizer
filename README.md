@@ -1,4 +1,4 @@
-how to run this in local machine
+How to run this in a local machine
 ---------------------------------
 i).first you have to have an Spotify account.spotify is a music application and they provide Api's for open source developments.
 
@@ -9,7 +9,7 @@ ii).In order to create account in spotify you should be brwosering in US.Make su
 iii).After that you can start the cloning the backend and the frontend parts to your lacl machine.This is the frontend and the backend will be here. (https://github.com/kasunvimu8/backend_better-music-visualizer_playlist)
 
   iv).After cloning the backend file go to that directory and install the npm dependacies by executing the command "npm install" .
-  then the backend severe will be listing to the http://localhost:8888
+  then the backend severe will be listing to the http://localhost:8888/login
   
   v).After that go to the frontend directory and install npm dependacies in there in the same way.In here you have to give the CLIENT_SECRET and the CLIENT_ID values in the command line .Otherwise it can steal by anybody who have the secrets.therefore the secrets are tied up to the command line.use mine for testing.I will delete them later.CLIENT_SECRET and CLIENT_ID are there for security purposes in spotify.Only valid clients have access to the their Api's.
   
