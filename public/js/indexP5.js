@@ -1,4 +1,4 @@
-var canvas,playButton,forwardButton,backwardButton,input,pieces,radius,fft,analyzer,mapMouseX,mapMouseXbass,mapMouseY;
+var canvas,playButton,forwardButton,backwardButton,patternButton,input,pieces,radius,fft,analyzer,mapMouseX,mapMouseXbass,mapMouseY;
 var colorPalette = ["#000", "rgba(22, 59, 72, 0.5)", "#00a6e0", "#002a38"];
 
 var volumeHistory = [];
@@ -10,7 +10,6 @@ var song,play;
 
 var w;
 var pattern=1;
-
 /*function preload(){
     song = loadSound("test.mp3");
 }*/
@@ -26,33 +25,46 @@ function setup() {
 
 
     input = createFileInput(uploaded);
-    input.position(windowWidth/2,windowHeight/2-100);
-    //colorMode(HSB);
+    input.position(windowWidth/2-80,windowHeight/2-20);
 
     backwardButton = createButton('<<');
-    backwardButton.position(input.width+windowWidth/2,windowHeight/2-100);
+    backwardButton.position(input.width+windowWidth/2,windowHeight/2-20);
     backwardButton.mousePressed(backwardSong);
 
-    playButton = createButton('Play');
+    playButton = createButton('Play..');
     playButton.style('width','50')
-    playButton.position(backwardButton.width+backwardButton.x,windowHeight/2-100);
+    playButton.position(backwardButton.width+backwardButton.x,windowHeight/2-20);
     playButton.mousePressed(tooglePlay);
 
     forwardButton = createButton('>>');
-    forwardButton.position(playButton.width+playButton.x,windowHeight/2-100);
+    forwardButton.position(playButton.width+playButton.x,windowHeight/2-20);
     forwardButton.mousePressed(forwardSong);
 
-    patternButton = createButton('Change Pattern');
-    patternButton.position(forwardButton.width+forwardButton.x,windowHeight/2-100);
-    patternButton.mousePressed(changePattern);
+    patternButton = createSelect();
+    patternButton.option('Pattern1');
+    patternButton.option('Pattern2');
+    patternButton.option('Pattern3');
+    patternButton.option('Pattern4');
+    patternButton.option('Pattern5');
+    patternButton.position(windowWidth-patternButton.width-100,windowHeight/2-20);
+    patternButton.changed(changePattern);
 
     input.addClass("input");
     backwardButton.addClass("back-btn");
     playButton.addClass("play-btn");
     forwardButton.addClass("for-btn");
+    patternButton.addClass("change-btn");
 
-    fft = new p5.FFT();
-    analyzer = new p5.Amplitude();
+    if(pattern == 3 || pattern == 4 || pattern == 5){
+        
+        colorMode(HSB);
+        fft = new p5.FFT(0,16);
+        w = width/16;
+    }
+    else{
+        fft = new p5.FFT();
+        analyzer = new p5.Amplitude();
+    }
     //playing sound in preload method
     //song.play();
 
@@ -61,7 +73,25 @@ function setup() {
 }
 
 function changePattern() {
-    pattern = 2;
+    
+    var valu = patternButton.value();
+    //pattern++;
+    //setup();
+    if (valu=='Pattern1'){
+        pattern = 1;
+    }
+    else if (valu=='Pattern2'){
+        pattern =2;
+    }
+    else if (valu=='Pattern3'){
+        pattern =3;
+    }
+    else if (valu=='Pattern4'){
+        pattern =4;
+    }
+    else{
+        pattern =5;
+    }
     setup();
 }
 
@@ -87,21 +117,29 @@ function doneLoading(){
 
 //calls infinitely
 function draw(){
-    
-    background(colorPalette[0]);
-
-    translate(windowWidth/ 4, windowHeight/ 4);
-
     if (pattern==1) {
         pattern1();
-    } else {
+    }
+    else if(pattern==2){
         pattern2();
+    } 
+    else if(pattern==3){
+        pattern3();
+    } 
+    else if(pattern==4){
+        pattern4();
+    } 
+    else {
+        pattern5();
     }
     
 
 }
 
 function pattern1(){
+    background(colorPalette[0]);
+
+    translate(windowWidth/ 4, windowHeight/ 4);
 
     noFill();
 
@@ -170,6 +208,9 @@ function pattern1(){
 }
 
 function pattern2(){
+    background(colorPalette[0]);
+
+    translate(windowWidth/ 4, windowHeight/ 4);
     var spectrum = fft.analyze();
 
     var bass = fft.getEnergy(100, 150);
@@ -224,6 +265,60 @@ function pattern2(){
         rotate((val * 0.002));
         polygon(mapTreble + i / 2, mapTreble - i / 2, mapMouseY * i / 2, 3);
         pop();
+
+    }
+}
+
+function pattern3(){ //round equalizer
+    clear();
+    background(0);
+    noStroke();
+    var spectrum = fft.analyze();
+    for(var itr = 0;itr<spectrum.length;itr++){
+
+        var amp = spectrum[itr];
+        var y = map(amp,0,255,0,height);
+        noStroke();
+        fill(itr*4,255,255);
+        arc(width/2, height/2, y, y, 0,((2*spectrum.length-1)*PI/(spectrum.length))*itr/spectrum.length, PIE);
+
+    }
+}
+
+function pattern4(){ //equalizer
+    clear();background(0);
+		noStroke();
+		var spectrum = fft.analyze();
+		for(var itr = 0;itr<spectrum.length;itr++){
+			//var x = map(itr,0,spectrum.length,0,width);
+			var amp = spectrum[itr];
+			var y = map(amp,0,255,0,height/2);
+			fill(itr*4,255,255);
+			rect(itr*w,height*0.75-y,w,y);
+		}
+}
+
+function pattern5(){
+    clear();
+    background(0);
+    noStroke();
+    var spectrum = fft.analyze();
+    fill(255);
+    ellipse(width/2, height/2, width/2, width/2);
+    fill(0);
+    ellipse(1*width/3, 1*height/3, width/8, width/8);
+    ellipse(2*width/3, 1*height/3, width/8, width/8);
+    arc(width/2, 2*height/3, width/8, width/8, 0,PI, PIE);
+
+    for(var itr = 0;itr<spectrum.length;itr++){
+
+        var amp = spectrum[itr];
+        var y = map(amp,0,255,0,height/8);
+
+
+        fill(itr*4,255,255);
+        ellipse(1*width/3, 1*height/3, y, y);
+        ellipse(2*width/3, 1*height/3, y, y);
 
     }
 }
