@@ -1,4 +1,4 @@
-how to run this in local machine
+How to run this in a local machine
 ---------------------------------
 i).first you have to have an Spotify account.spotify is a music application and they provide Api's for open source developments.
 

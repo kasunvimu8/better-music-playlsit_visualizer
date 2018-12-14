@@ -1,6 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+      <style>
+          .play-btn{
+            border-style: inset;
+            border-color: #33CC99;
+            background: black;
+            color:gold;
+          }
+          .back-btn{
+            border-style: inset;
+            border-color: #33CC99;
+            background: black;
+            color:red;
+          }
+          .for-btn{
+            border-style: inset;
+            border-color: #33CC99;
+            background: black;
+            color:red;
+          }
+          .change-btn{
+            border-style: inset;
+            border-color: #33CC99;
+            background: black;
+            color:red;
+          }
+          .input{
+            border-style: inset;
+            border-color: #33CC99;
+            background: black;
+            color:red;
+            position: relative;
+          }
+        </style>
     <meta charset="utf-8">
     <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -13,6 +46,10 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="js/indexP5.js"></script>
+    <script src="js/p5/p5.js"></script>
+    <script src="js/p5/p5.dom.js"></script>
+    <script src="js/p5/p5.sound.js"></script>
     <!--
       manifest.json provides metadata used when your web app is added to the
       homescreen on Android. See https://developers.google.com/web/fundamentals/web-app-manifest/
@@ -30,6 +67,7 @@
     <title>React App</title>
   </head>
   <body>
+    
     <noscript>
       You need to enable JavaScript to run this app.
     </noscript>
@@ -38,25 +76,26 @@
   <div class="container">
     <div class="row">
       
-      <div class="col-sm-8">  <!-- this is playlist section-->
+      <div class="col-md-5">  <!-- this is playlist section-->
          <div id="root"></div>
       
       
       </div>
 
 
-      <div class="col-sm-4">    <!--this part holds the visualization -->
+      <div class="col-md-6" id="p5">    <!--this part holds the visualization -->
        <!--add the requid HTML object here -->  
       </div>
-
+      
     </div>
     
   </div>
 
- </div>
 
+    <!-- <div id="root">
+      
 
-    <div id="root"></div>
+    </div> -->
     
 
     <!--
